@@ -1,0 +1,124 @@
+@startuml
+left to right direction
+actor User <<Human>> as user
+
+package CRUD {
+    actor AutoSaver <<EventHandler>> as saver
+    usecase "Create DayLog" as create_daylog
+    usecase "Edit DayLog" as edit_daylog
+    usecase "Record VoiceLog" as record_voicelog
+    usecase "Select FeelingLog" as select_feelinglog
+    usecase "Ask overwrite\n VoiceLog" as ask_overwrite_voicelog
+    usecase "Record voice" as record_voice
+    usecase "Generate STTLog" as generate_sttlog
+    usecase "Import STT text\n to TextLog" as import_sttlog
+    usecase "Edit TextLog" as edit_textlog
+    usecase "Delete DayLog" as delete_daylog
+    usecase "Delete VoiceLog" as delete_voicelog
+    usecase "Autosave TextLog" as autosave_textlog
+
+    user -- create_daylog
+    user -- edit_daylog
+    user -- record_voicelog
+    user -- select_feelinglog
+    user -- import_sttlog
+    user -- edit_textlog
+    user -- delete_daylog
+    user -- delete_voicelog
+
+    create_daylog .> edit_daylog: << includes >>
+    import_sttlog .> edit_textlog: << includes >>
+    edit_textlog <.. autosave_textlog: << extends >>
+    record_voicelog <.. ask_overwrite_voicelog: << extends >>
+    record_voicelog <.. record_voice: << extends >>
+    record_voice .> generate_sttlog: << includes >>
+
+    saver - autosave_textlog
+
+}
+
+package Navigation {
+
+    usecase navigate_daylog as "Navigate DayLog"
+    usecase select_year as "Filter DayLog \nlist by year"
+    usecase select_feeling as "Filter DayLog \nlist by feeling"
+    usecase select_keyword as "Filter DayLog \nlist by keyword"
+
+    user -left- navigate_daylog
+    
+    select_year ..> navigate_daylog: << extends >>
+    select_feeling ..> navigate_daylog: << extends >>
+    select_keyword ..> navigate_daylog: << extends >>
+
+}
+
+package Calendar {
+    usecase select_day as "Select day on calendar"
+    usecase change_year as "Change year of calendar"
+    usecase change_month as "Change month of calendar"
+
+    user -up- select_day
+    user -up- change_year
+    user -up- change_month
+
+    select_day <.. create_daylog : << extends >>
+    select_day <.. edit_daylog : << extends >>
+}
+
+package Player {
+
+    actor VoiceLogPlayer << Service Daemon >> as voice_player
+
+    usecase "Play VoiceLog" as play_voicelog
+    usecase "Play next VoiceLog" as play_next_voicelog
+    usecase handle_auto_play as "Handle auto play setting"
+    usecase auto_play_enable as "Enable auto playing"
+    usecase auto_play_disable as "Disable auto playing"
+    usecase set_auto_play_direction as "Set auto play direction"
+    usecase auto_play_upward as "Auto play from \nolder to new one"
+    usecase auto_play_downward as "Auto play from \nnewer to old one"
+
+    user -- play_voicelog
+    user -- handle_auto_play
+    user -- set_auto_play_direction
+    play_voicelog -- voice_player
+    play_voicelog <. play_next_voicelog : << extends >>
+
+    handle_auto_play <.. auto_play_enable : << extends >>
+    handle_auto_play <.. auto_play_disable : << extends >>
+
+    set_auto_play_direction <.. auto_play_upward : << extends >>
+    set_auto_play_direction <.. auto_play_downward : << extends >>
+
+
+}
+
+package Statistics {
+    'no usecase, it only has statistics view
+}
+
+package Setting { 
+    actor AlarmManager <<EventHandler>> as alarm_manager
+
+    usecase select_app_info as "Select App Info"
+    usecase enable_google_drive as "Enable Google Drive Sync"
+    usecase backup_data as "Backup DayLog data"
+    usecase password_setting as "Set password"
+    usecase enable_fingerprint as "Enable fingerprint\n verification"
+    usecase enable_alarm as "Enable daily alarm"
+    usecase trigger_alarm as "Alert to user for DayLog"
+
+    user -up- select_app_info
+    user -up- enable_google_drive
+    user -up- backup_data
+    user -up- password_setting
+    user -up- enable_alarm
+
+    alarm_manager - trigger_alarm
+    enable_alarm - alarm_manager
+
+    password_setting <. enable_fingerprint : << extends >>
+
+}
+
+@enduml

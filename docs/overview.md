@@ -23,6 +23,15 @@
 - User can navigate voice log using feeling categories
 - User can set alarm setting to encourage their daily logging
 
+## Usecases
+
+- Epic lists
+  - CRUD
+  - Navigation
+  - Calendar
+  - Player
+  - Statistics
+  - Setting
 
 ## View
 
@@ -95,6 +104,8 @@ TBD
 - No backend server
 - Locale support
 - Android compose UI
+- Data should be stored in secure storage
 - Google Drive sync support
+- File Export support
 - Multiple diary notebook support
 - On-time premium payment
