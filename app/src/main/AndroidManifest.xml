@@ -3,6 +3,7 @@
     package="com.wangmir.calliope">
 
     <application
+        android:name=".Calliope"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
