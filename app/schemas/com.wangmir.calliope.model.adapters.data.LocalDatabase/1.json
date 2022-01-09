@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a4b0a68059662cfe51a4eb66337e362b",
+    "entities": [
+      {
+        "tableName": "DayLog",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`emotionLog` TEXT NOT NULL, `date.year` INTEGER NOT NULL, `date.month` INTEGER NOT NULL, `date.dayOfMonth` INTEGER NOT NULL, `voiceLog.audioFilePath` TEXT, `textLog.text` TEXT NOT NULL, `sttLog.sttText` TEXT, PRIMARY KEY(`date.year`, `date.month`, `date.dayOfMonth`))",
+        "fields": [
+          {
+            "fieldPath": "emotionLog",
+            "columnName": "emotionLog",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date.year",
+            "columnName": "date.year",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date.month",
+            "columnName": "date.month",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date.dayOfMonth",
+            "columnName": "date.dayOfMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voiceLog.audioFilePath",
+            "columnName": "voiceLog.audioFilePath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "textLog.text",
+            "columnName": "textLog.text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sttLog.sttText",
+            "columnName": "sttLog.sttText",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "date.year",
+            "date.month",
+            "date.dayOfMonth"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a4b0a68059662cfe51a4eb66337e362b')"
+    ]
+  }
+}
