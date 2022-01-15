@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Calliope</string>
+    <string name="list_view_navi">Diary</string>
+    <string name="calendar_view_navi">Calendar</string>
+    <string name="statistics_view_navi">Statistics</string>
+    <string name="setting_view_navi">Setting</string>
 </resources>
