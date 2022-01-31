@@ -1,11 +1,11 @@
 package com.wangmir.calliope.ui.components
 
 import androidx.annotation.StringRes
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.Icon
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
@@ -14,8 +14,6 @@ import androidx.compose.material.icons.outlined.Leaderboard
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -42,14 +40,14 @@ fun BottomNavigator(
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
 
-) {
+    ) {
     Row(
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
             .background(MaterialTheme.colors.background)
-            .padding(15.dp)
+            .padding(8.dp)
     ) {
         items.forEach { item ->
             BottomMenuItem(
@@ -69,11 +67,13 @@ fun BottomMenuItem(
     modifier: Modifier = Modifier,
     onItemClick: () -> Unit
 ) {
+    val color =
+        if (isSelected) LocalContentColor.current else LocalContentColor.current.copy(alpha = 0.5F)
     Box(
         modifier = modifier.selectable(selected = isSelected, onClick = onItemClick),
         contentAlignment = Alignment.Center
     ) {
-        Icon(item.icon, item.name)
+        Icon(item.icon, item.name, tint = color)
     }
 }
 

@@ -1,6 +1,5 @@
 package com.wangmir.calliope.ui.view
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -8,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.runtime.Composable
@@ -18,7 +16,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.wangmir.calliope.domain.entities.Date
 import com.wangmir.calliope.domain.entities.DayLog
 import com.wangmir.calliope.domain.entities.TextLog
@@ -27,40 +26,16 @@ import com.wangmir.calliope.ui.components.BottomMenuContent
 import com.wangmir.calliope.ui.components.BottomNavigator
 import com.wangmir.calliope.ui.theme.CalliopeTheme
 
-val TAG = "DayLogListView"
+const val TAG = "DayLogListView"
 
 @ExperimentalMaterialApi
 @Composable
+@Destination(route = "home/list_view", start = true)
 fun DayLogListView(
-    navController: NavController,
+    navigator: DestinationsNavigator,
     viewModel: DayLogListViewModel = hiltViewModel()
 ) {
-    val scaffoldState = rememberScaffoldState()
-
-    Scaffold(
-        bottomBar = {
-            BottomNavigator(
-                items = BottomMenuContent.values().toList(),
-                // todo: change this with regarding state
-                currentRoute = BottomMenuContent.LIST_VIEW.route,
-                navigateToRoute = {}
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    // todo: Make add view
-                    Log.d(TAG, "Add DayLog clicked")
-                },
-                backgroundColor = MaterialTheme.colors.primary
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add DayLog")
-            }
-        },
-        scaffoldState = scaffoldState
-    ) {
-        DayLogList(dayLogs = viewModel.dayLogList.collectAsState(initial = listOf()).value)
-    }
+    DayLogList(dayLogs = viewModel.dayLogList.collectAsState(initial = listOf()).value)
 }
 
 @ExperimentalMaterialApi
