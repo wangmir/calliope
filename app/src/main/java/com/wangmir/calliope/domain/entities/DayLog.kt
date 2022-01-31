@@ -1,4 +1,4 @@
-package com.wangmir.calliope.model.entities
+package com.wangmir.calliope.domain.entities
 
 import androidx.room.Embedded
 import androidx.room.Entity
@@ -43,5 +43,9 @@ data class Date (
 
     override fun toString(): String {
         return "$year.$month.$dayOfMonth."
+    }
+
+    fun toInt(): Int {
+        return "$year$month$dayOfMonth".toInt()
     }
 }

@@ -1,10 +1,10 @@
-package com.wangmir.calliope.model.adapters.data
+package com.wangmir.calliope.adapters.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.wangmir.calliope.model.entities.DayLog
+import com.wangmir.calliope.domain.entities.DayLog
 
 @Database(
     entities = [DayLog::class],

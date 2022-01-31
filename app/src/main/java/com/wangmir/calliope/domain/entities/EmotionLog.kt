@@ -1,4 +1,4 @@
-package com.wangmir.calliope.model.entities
+package com.wangmir.calliope.domain.entities
 
 enum class EmotionLog (val value: String) {
     NotSet("none"),

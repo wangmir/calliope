@@ -1,4 +1,4 @@
-package com.wangmir.calliope.model.entities
+package com.wangmir.calliope.domain.entities
 
 data class VoiceLog(
     val audioFilePath: String

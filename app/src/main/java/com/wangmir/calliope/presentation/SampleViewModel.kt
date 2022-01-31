@@ -1,4 +1,4 @@
-package com.wangmir.calliope.viewmodels
+package com.wangmir.calliope.presentation
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,8 +1,8 @@
-package com.wangmir.calliope.model.adapters.data
+package com.wangmir.calliope.adapters.data
 
-import com.wangmir.calliope.model.DataRepository
-import com.wangmir.calliope.model.entities.DayLog
-import com.wangmir.calliope.model.entities.EmotionLog
+import com.wangmir.calliope.domain.repositories.DataRepository
+import com.wangmir.calliope.domain.entities.DayLog
+import com.wangmir.calliope.domain.entities.EmotionLog
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.datetime.LocalDate
