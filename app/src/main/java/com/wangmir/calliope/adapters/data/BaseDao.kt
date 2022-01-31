@@ -1,4 +1,4 @@
-package com.wangmir.calliope.model.adapters.data
+package com.wangmir.calliope.adapters.data
 
 import androidx.room.Delete
 import androidx.room.Insert

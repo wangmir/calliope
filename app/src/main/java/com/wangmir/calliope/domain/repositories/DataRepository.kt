@@ -1,7 +1,7 @@
-package com.wangmir.calliope.model
+package com.wangmir.calliope.domain.repositories
 
-import com.wangmir.calliope.model.entities.DayLog
-import com.wangmir.calliope.model.entities.EmotionLog
+import com.wangmir.calliope.domain.entities.DayLog
+import com.wangmir.calliope.domain.entities.EmotionLog
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDate
 

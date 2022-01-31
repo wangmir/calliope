@@ -1,10 +1,10 @@
-package com.wangmir.calliope.model.adapters.data
+package com.wangmir.calliope.adapters.data
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.wangmir.calliope.model.entities.Date
-import com.wangmir.calliope.model.entities.DayLog
-import com.wangmir.calliope.model.entities.EmotionLog
+import com.wangmir.calliope.domain.entities.Date
+import com.wangmir.calliope.domain.entities.DayLog
+import com.wangmir.calliope.domain.entities.EmotionLog
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDate
 
