@@ -7,7 +7,7 @@ import kotlinx.datetime.LocalDate
 
 interface DataRepository {
     suspend fun insertDayLog(dayLog: DayLog)
-    suspend fun getDayLog(date: LocalDate): DayLog
+    suspend fun getDayLog(date: LocalDate): DayLog?
     suspend fun deleteDayLog(date: LocalDate)
 
     fun getDayLogsByYear(year: Int): Flow<List<DayLog>>

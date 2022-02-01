@@ -25,7 +25,7 @@ class FakeDataRepository : DataRepository {
 
         // year 2022
         list.add(mockData.copy(date = Date(2022, 1, 21)))
-        list.add(mockData.copy(date = Date(2022, 2, 28)))
+        list.add(mockData.copy(date = Date(2022, 1, 28)))
 
         // keyword has "MOCK_KEYWORD"
         list.add(mockData.copy(textLog = TextLog(MOCK_KEYWORD)))
@@ -39,8 +39,8 @@ class FakeDataRepository : DataRepository {
         list.add(dayLog)
     }
 
-    override suspend fun getDayLog(date: LocalDate): DayLog {
-        return list.find { it.date == Date(date) }!!
+    override suspend fun getDayLog(date: LocalDate): DayLog? {
+        return list.find { it.date == Date(date) }
     }
 
     override suspend fun deleteDayLog(date: LocalDate) {

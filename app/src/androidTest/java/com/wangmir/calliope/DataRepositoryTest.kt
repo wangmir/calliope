@@ -3,18 +3,21 @@ package com.wangmir.calliope
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
-import com.wangmir.calliope.domain.repositories.DataRepository
 import com.wangmir.calliope.adapters.data.DataRepositoryImpl
 import com.wangmir.calliope.adapters.data.LocalDatabase
 import com.wangmir.calliope.domain.entities.Date
 import com.wangmir.calliope.domain.entities.DayLog
 import com.wangmir.calliope.domain.entities.EmotionLog
 import com.wangmir.calliope.domain.entities.TextLog
+import com.wangmir.calliope.domain.repositories.DataRepository
 import com.wangmir.calliope.testutils.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.junit.jupiter.api.*
 
 @ExperimentalCoroutinesApi
@@ -50,7 +53,7 @@ class DataRepositoryTest {
     @Order(2)
     fun testDayLogGet() = runBlocking {
         val result = repository.getDayLog(LocalDate(2021, 10, 21))
-        assertThat(result.textLog.text).isEqualTo("Test")
+        assertThat(result!!.textLog.text).isEqualTo("Test")
     }
 
     @Test
@@ -72,17 +75,17 @@ class DataRepositoryTest {
 
         repository.insertDayLog(dayLog)
         val beforeResult = repository.getDayLog(date)
-        assertThat(beforeResult.emotionLog).isEqualTo(EmotionLog.Happy)
+        assertThat(beforeResult!!.emotionLog).isEqualTo(EmotionLog.Happy)
 
         val dayLogUpdate = dayLog.copy(emotionLog = EmotionLog.Sad)
         repository.insertDayLog(dayLogUpdate)
         val afterResult = repository.getDayLog(date)
-        assertThat(afterResult.emotionLog).isEqualTo(EmotionLog.Sad)
+        assertThat(afterResult!!.emotionLog).isEqualTo(EmotionLog.Sad)
     }
 
     @Test
     @Order(5)
-    fun testGetDayLogByYear() = runBlocking {
+    fun testGetDayLogsByYear() = runBlocking {
 
         repository.insertDayLog(defaultDayLog)
         repository.insertDayLog(defaultDayLog.copy(date = Date(2021, 10, 22)))
@@ -103,7 +106,7 @@ class DataRepositoryTest {
 
     @Test
     @Order(6)
-    fun testGetDayLogByKeyword() = runBlocking {
+    fun testGetDayLogsByKeyword() = runBlocking {
 
         repository.insertDayLog(defaultDayLog)
         repository.insertDayLog(
@@ -139,7 +142,7 @@ class DataRepositoryTest {
 
     @Test
     @Order(7)
-    fun testGetDayLogByEmotion() = runBlocking {
+    fun testGetDayLogsByEmotion() = runBlocking {
 
         repository.insertDayLog(defaultDayLog)
         repository.insertDayLog(
@@ -171,5 +174,16 @@ class DataRepositoryTest {
         assertThat(dayLogList).isNotNull()
         assertThat(dayLogList.size).isEqualTo(2)
         assertThat(dayLogList.last().date.dayOfMonth).isEqualTo(24)
+    }
+
+    @Test
+    @Order(8)
+    fun testGetDayLogOnEmptyDate() = runBlocking {
+
+        val result = repository.getDayLog(
+            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        )
+
+        assertThat(result).isNull()
     }
 }

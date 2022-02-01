@@ -9,10 +9,13 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.navigation.navigateTo
 import com.wangmir.calliope.ui.components.BottomMenuContent
 import com.wangmir.calliope.ui.components.BottomNavigator
 import com.wangmir.calliope.ui.theme.CalliopeTheme
 import com.wangmir.calliope.ui.view.destinations.DayLogListViewDestination
+import com.wangmir.calliope.ui.view.destinations.DayLogViewDestination
+import java.time.LocalDate
 
 @ExperimentalMaterialApi
 @Composable
@@ -38,6 +41,7 @@ fun Home() {
                     onClick = {
                         // todo: Make add view
                         Log.d(TAG, "Add DayLog clicked")
+                        navController.navigateTo(DayLogViewDestination(LocalDate.now()))
                     },
                     backgroundColor = MaterialTheme.colors.primary
                 ) {

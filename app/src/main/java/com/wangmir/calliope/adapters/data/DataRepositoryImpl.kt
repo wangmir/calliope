@@ -10,7 +10,7 @@ import kotlinx.datetime.LocalDate
 class DataRepositoryImpl(private val dayLogDao: DayLogDao) : DataRepository {
 
     override suspend fun insertDayLog(dayLog: DayLog) = dayLogDao.insert(dayLog)
-    override suspend fun getDayLog(date: LocalDate): DayLog = dayLogDao.getDayLog(date)
+    override suspend fun getDayLog(date: LocalDate): DayLog? = dayLogDao.getDayLog(date)
     override suspend fun deleteDayLog(date: LocalDate) = dayLogDao.deleteDayLog(date)
 
     override fun getDayLogsByYear(year: Int): Flow<List<DayLog>> =

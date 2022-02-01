@@ -57,7 +57,7 @@ abstract class BaseDao<T> {
         return doFindAllValid(query)
     }
 
-    fun findById(id: Int): T {
+    fun findById(id: Int): T? {
         val query = SimpleSQLiteQuery(
             "select * from " + getTableName() + " where id = ?", arrayOf<Any>(id))
         return doFind(query)

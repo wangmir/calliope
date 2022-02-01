@@ -4,7 +4,9 @@ import android.app.Application
 import com.wangmir.calliope.adapters.data.FakeDataRepository
 import com.wangmir.calliope.adapters.data.LocalDatabase
 import com.wangmir.calliope.domain.repositories.DataRepository
+import com.wangmir.calliope.domain.usecases.GetDayLog
 import com.wangmir.calliope.domain.usecases.GetDayLogList
+import com.wangmir.calliope.domain.usecases.UpdateDayLog
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,4 +31,14 @@ object AppModule {
     @Singleton
     fun provideGetDayLogList(dataRepository: DataRepository): GetDayLogList =
         GetDayLogList(dataRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetDayLog(dataRepository: DataRepository): GetDayLog =
+        GetDayLog(dataRepository)
+
+    @Provides
+    @Singleton
+    fun provideUpdateDayLog(dataRepository: DataRepository): UpdateDayLog =
+        UpdateDayLog(dataRepository)
 }
