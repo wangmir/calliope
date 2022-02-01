@@ -11,7 +11,7 @@ import kotlinx.datetime.LocalDate
 @Dao
 abstract class DayLogDao: BaseDao<DayLog>() {
     @Query("SELECT * FROM DayLog WHERE date_year = :year AND date_month = :month AND date_dayOfMonth = :dayOfMonth")
-    abstract suspend fun getDayLog(year: Int, month: Int, dayOfMonth: Int): DayLog
+    abstract suspend fun getDayLog(year: Int, month: Int, dayOfMonth: Int): DayLog?
 
     @Query("SELECT * FROM DayLog WHERE date_year = :year")
     abstract fun getDayLogsByYear(year: Int): Flow<List<DayLog>>
@@ -20,7 +20,7 @@ abstract class DayLogDao: BaseDao<DayLog>() {
     @Query("SELECT * FROM DayLog WHERE emotionLog = :emotionLog")
     abstract fun getDayLogsByEmotion(emotionLog: EmotionLog): Flow<List<DayLog>>
 
-    suspend fun getDayLog(date: LocalDate): DayLog {
+    suspend fun getDayLog(date: LocalDate): DayLog? {
         return getDayLog(date.year, date.monthNumber, date.dayOfMonth)
     }
 

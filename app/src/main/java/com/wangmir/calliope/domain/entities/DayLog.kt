@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import kotlinx.datetime.LocalDate
 
 @Entity
-data class DayLog (
+data class DayLog(
     @PrimaryKey
     @Embedded(prefix = "date_")
     val date: Date,
@@ -21,20 +21,34 @@ data class DayLog (
 
     companion object {
         fun getMockDayLog() = DayLog(
-                Date(2022, 1, 12),
-                voiceLog = null,
-                textLog = TextLog("""
+            Date(2022, 1, 12),
+            voiceLog = null,
+            textLog = TextLog(
+                """
                     오늘은 오마카세를 먹고 왔다. 맛있었다. 또 먹고 싶다. 
                     요즘 요가를 하면서 내면을 바라보는 일을 집중해보려고 하는데, 내면은 개뿔, 먹는게 최고다.
                     내일은 버거킹 먹어야지.
-                """.trimIndent()),
-                sttLog = null,
-                emotionLog = EmotionLog.Joyful
-            )
+                """.trimIndent()
+            ),
+            sttLog = null,
+            emotionLog = EmotionLog.Joyful
+        )
+
+        fun getEmptyDayLog(date: LocalDate) = DayLog(
+            Date(date),
+            voiceLog = null,
+            textLog = TextLog(""),
+            sttLog = null,
+            emotionLog = EmotionLog.NotSet
+        )
+    }
+
+    fun isEmpty(): Boolean {
+        return voiceLog == null && textLog.isEmpty() && sttLog == null && emotionLog == EmotionLog.NotSet
     }
 }
 
-data class Date (
+data class Date(
     val year: Int,
     val month: Int,
     val dayOfMonth: Int

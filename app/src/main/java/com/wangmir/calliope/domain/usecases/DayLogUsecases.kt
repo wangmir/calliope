@@ -6,6 +6,7 @@ import com.wangmir.calliope.domain.util.DayLogFilter
 import com.wangmir.calliope.domain.util.OrderType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.LocalDate
 
 class GetDayLogList(
     private val dataRepository: DataRepository
@@ -22,5 +23,21 @@ class GetDayLogList(
                 is OrderType.Descending -> dayLogs.sortedByDescending { it.date.toInt() }
             }
         }
+    }
+}
+
+class UpdateDayLog(
+    private val dataRepository: DataRepository
+) {
+    suspend operator fun invoke(dayLog: DayLog) {
+        dataRepository.insertDayLog(dayLog)
+    }
+}
+
+class GetDayLog(
+    private val dataRepository: DataRepository
+) {
+    suspend operator fun invoke(date: LocalDate): DayLog {
+        return dataRepository.getDayLog(date) ?: DayLog.getEmptyDayLog(date)
     }
 }
